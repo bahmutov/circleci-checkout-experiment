@@ -1,0 +1,19 @@
+# to use orbs, must use version >= 2.1
+version: 2.1
+
+jobs:
+  test:
+    machine:
+      image: ubuntu-2004:202104-01
+    steps:
+      - checkout
+      - run:
+          name: print variables
+          # https://github.com/bahmutov/print-env
+          # https://circleci.com/docs/2.0/env-vars/#built-in-environment-variables
+          command: npx @bahmutov/print-env CIRCLE
+
+workflows:
+  e2e:
+    jobs:
+      - test
