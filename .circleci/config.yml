@@ -32,7 +32,7 @@ jobs:
           command: |
             echo "Switching to branch << pipeline.parameters.TEST_BRANCH >> if it exists"
             git checkout << pipeline.parameters.TEST_BRANCH >> || true
-            git pull
+            git pull origin << pipeline.parameters.TEST_BRANCH >> || true
 
       - run:
           name: Print current Git info
