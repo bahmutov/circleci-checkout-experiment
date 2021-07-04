@@ -88,3 +88,6 @@ workflows:
             - switch_branch:
                 BRANCH_NAME: << pipeline.parameters.TEST_BRANCH >>
             - print_git
+          # we do not need to keep the workspace around
+          # since there are no other jobs that depend on it
+          no-workspace: true
