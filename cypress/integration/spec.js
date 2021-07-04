@@ -2,5 +2,5 @@
 
 describe('spec', () => {
   it('first test', () => { })
-  it('second test', () => { })
+  it('second test for feature Y', () => { })
 })
