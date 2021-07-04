@@ -61,6 +61,8 @@ workflows:
           post-checkout:
             - run:
                 name: Print current Git info
+                # looks like Cypress default executor does not have
+                # a very recent Git version, thus we cannot use "--show-current"
                 command: |
-                  echo "current branch is: $(git branch --show-current)"
+                  echo "current branch is: $(git branch -a)"
                   echo "current commit is: $(git rev-parse --short HEAD)"
