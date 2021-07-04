@@ -14,7 +14,10 @@ jobs:
           command: npx @bahmutov/print-env CIRCLE
       - run:
           name: print current branch
-          command: git branch
+          command: |
+            echo "current branch is: $(git branch --show-current)"
+            echo "all available branches"
+            git branch -a
 
 workflows:
   e2e:
