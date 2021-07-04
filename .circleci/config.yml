@@ -34,6 +34,12 @@ jobs:
             git checkout << pipeline.parameters.TEST_BRANCH >> || true
             git pull
 
+      - run:
+          name: Print current Git info
+          command: |
+            echo "current branch is: $(git branch --show-current)"
+            echo "current commit is: $(git rev-parse --short HEAD)"
+
 workflows:
   e2e:
     jobs:
