@@ -7,7 +7,7 @@ environment:
 parameters:
   TEST_BRANCH:
     type: string
-    default: 'main'
+    default: 'feature-X'
 
 jobs:
   test:
