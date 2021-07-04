@@ -15,7 +15,28 @@ parameters:
   # to check out and run tests from.
   TEST_BRANCH:
     type: string
-    default: 'main'
+    default: 'test-feature-Y'
+
+# https://circleci.com/docs/2.0/reusing-config/#authoring-reusable-commands
+commands:
+  switch_branch:
+    description: |
+      Changes the current branch to the latest commit on the specific branch.
+      NOTE: if the branch does not exist, does nothing.
+    parameters:
+      BRANCH_NAME:
+        type: string
+        default: ''
+    steps:
+      - when:
+          condition: << parameters.BRANCH_NAME >>
+          steps:
+          - run:
+              name: Checkout branch << parameters.BRANCH_NAME >>
+              command: |
+                echo "Switching to branch << parameters.BRANCH_NAME >> if it exists"
+                git checkout << parameters.BRANCH_NAME >> || true
+                git pull origin << parameters.BRANCH_NAME >> || true
 
 jobs:
   test:
@@ -35,12 +56,8 @@ jobs:
             echo "all available branches"
             git branch -a
 
-      - run:
-          name: Checkout test branch
-          command: |
-            echo "Switching to branch << pipeline.parameters.TEST_BRANCH >> if it exists"
-            git checkout << pipeline.parameters.TEST_BRANCH >> || true
-            git pull origin << pipeline.parameters.TEST_BRANCH >> || true
+      - switch_branch:
+          BRANCH_NAME: << pipeline.parameters.TEST_BRANCH >>
 
       - run:
           name: Print current Git info
@@ -59,10 +76,18 @@ workflows:
           # see orb use examples in
           # https://github.com/cypress-io/circleci-orb#examples
           post-checkout:
-            - run:
-                name: Print current Git info
-                # looks like Cypress default executor does not have
-                # a very recent Git version, thus we cannot use "--show-current"
-                command: |
-                  echo "current branch is: $(git branch -a)"
-                  echo "current commit is: $(git rev-parse --short HEAD)"
+            - run: echo Scaffolding before installing
+
+            # - run: |
+            #     echo "Switching to branch << pipeline.parameters.TEST_BRANCH >> if it exists"
+            #     git checkout << pipeline.parameters.TEST_BRANCH >> || true
+            #     git pull origin << pipeline.parameters.TEST_BRANCH >> || true
+            # - switch-branch:
+            #     BRANCH_NAME: << pipeline.parameters.TEST_BRANCH >>
+              # - run:
+              #     name: Print current Git info
+              #     # looks like Cypress default executor does not have
+              #     # a very recent Git version, thus we cannot use "--show-current"
+              #     command: |
+              #       echo "current branch is: $(git branch -a)"
+              #       echo "current commit is: $(git rev-parse --short HEAD)"
