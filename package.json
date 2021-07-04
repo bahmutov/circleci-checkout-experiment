@@ -1,0 +1,25 @@
+{
+  "name": "circleci-checkout-experiment",
+  "version": "1.0.0",
+  "description": "Experiment with Git checkout and switching branches on CircleCI",
+  "main": "index.js",
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {
+    "cypress": "^7.6.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bahmutov/circleci-checkout-experiment.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bahmutov/circleci-checkout-experiment/issues"
+  },
+  "homepage": "https://github.com/bahmutov/circleci-checkout-experiment#readme"
+}
