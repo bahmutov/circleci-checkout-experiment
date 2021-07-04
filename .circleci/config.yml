@@ -5,9 +5,12 @@ environment:
   TERM: 'xterm'
 
 parameters:
+  # by default test everything using the current default branch
+  # but if the pipeline is triggered via API, you can pass the branch name
+  # to check out and run tests from.
   TEST_BRANCH:
     type: string
-    default: 'feature-X'
+    default: 'main'
 
 jobs:
   test:
