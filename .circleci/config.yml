@@ -82,6 +82,7 @@ workflows:
       # see orb use examples in
       # https://github.com/cypress-io/circleci-orb#examples
       - cypress/run:
+          name: Cypress E2E tests
           # switch to the test branch before installing and running tests
           post-checkout:
             - switch_branch:
